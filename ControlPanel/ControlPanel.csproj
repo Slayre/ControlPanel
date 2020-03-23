@@ -1,5 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\CefSharp.WinForms.75.1.143\build\CefSharp.WinForms.props" Condition="Exists('..\packages\CefSharp.WinForms.75.1.143\build\CefSharp.WinForms.props')" />
+  <Import Project="..\packages\CefSharp.Common.75.1.143\build\CefSharp.Common.props" Condition="Exists('..\packages\CefSharp.Common.75.1.143\build\CefSharp.Common.props')" />
+  <Import Project="..\packages\cef.redist.x86.75.1.14\build\cef.redist.x86.props" Condition="Exists('..\packages\cef.redist.x86.75.1.14\build\cef.redist.x86.props')" />
+  <Import Project="..\packages\cef.redist.x64.75.1.14\build\cef.redist.x64.props" Condition="Exists('..\packages\cef.redist.x64.75.1.14\build\cef.redist.x64.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -8,13 +12,16 @@
     <OutputType>WinExe</OutputType>
     <RootNamespace>ControlPanel</RootNamespace>
     <AssemblyName>ControlPanel</AssemblyName>
-    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
-    <PublishUrl>publish\</PublishUrl>
-    <Install>true</Install>
-    <InstallFrom>Disk</InstallFrom>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+    <PublishUrl>\\niar-fs1\software\Sync Center\</PublishUrl>
+    <Install>false</Install>
+    <InstallFrom>Unc</InstallFrom>
     <UpdateEnabled>false</UpdateEnabled>
     <UpdateMode>Foreground</UpdateMode>
     <UpdateInterval>7</UpdateInterval>
@@ -22,11 +29,14 @@
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
-    <ApplicationRevision>0</ApplicationRevision>
+    <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
+    <WebPage>publish.htm</WebPage>
+    <ApplicationRevision>1</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
-    <IsWebBootstrapper>false</IsWebBootstrapper>
     <UseApplicationTrust>false</UseApplicationTrust>
+    <PublishWizardCompleted>true</PublishWizardCompleted>
     <BootstrapperEnabled>true</BootstrapperEnabled>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -37,6 +47,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -46,13 +57,47 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup>
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <PlatformTarget>x64</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>nico.ico</ApplicationIcon>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ManifestCertificateThumbprint>62BB5BF6351AFA38DB47AE832116988352905F76</ManifestCertificateThumbprint>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ManifestKeyFile>ControlPanel_TemporaryKey.pfx</ManifestKeyFile>
+  </PropertyGroup>
+  <PropertyGroup>
+    <GenerateManifests>false</GenerateManifests>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignManifests>true</SignManifests>
+  </PropertyGroup>
+  <PropertyGroup>
+    <TargetZone>LocalIntranet</TargetZone>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Net" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -62,8 +107,15 @@
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="EnvirVariablePopUp.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="EnvirVariablePopUp.Designer.cs">
+      <DependentUpon>EnvirVariablePopUp.cs</DependentUpon>
+    </Compile>
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -78,6 +130,12 @@
     <Compile Include="ScriptForm.Designer.cs">
       <DependentUpon>ScriptForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="ToolForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ToolForm.Designer.cs">
+      <DependentUpon>ToolForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="UserControl1.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -90,6 +148,9 @@
     <Compile Include="WOForm.Designer.cs">
       <DependentUpon>WOForm.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="EnvirVariablePopUp.resx">
+      <DependentUpon>EnvirVariablePopUp.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
@@ -101,13 +162,20 @@
     <EmbeddedResource Include="ScriptForm.resx">
       <DependentUpon>ScriptForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="ToolForm.resx">
+      <DependentUpon>ToolForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UserControl1.resx">
       <DependentUpon>UserControl1.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="WOForm.resx">
       <DependentUpon>WOForm.cs</DependentUpon>
     </EmbeddedResource>
-    <None Include="app.manifest" />
+    <None Include="app.manifest">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="ControlPanel_TemporaryKey.pfx" />
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -130,11 +198,30 @@
     <None Include="Resources\NIAR.png" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\updootgrey.png" />
+    <None Include="Resources\updoot.png" />
+    <None Include="Resources\shield-error-iconsmaller.png" />
+    <None Include="Resources\shield-ok-iconsmaller.png" />
+    <None Include="Resources\shield-ok-iconsmall.png" />
+    <None Include="Resources\shield-error-icon.png" />
+    <None Include="shield.png" />
+    <None Include="Resources\NIAR1.png" />
     <None Include="Resources\smalluser.png" />
     <None Include="Resources\calendarsmall.png" />
     <None Include="Resources\workordersmall.png" />
     <None Include="Resources\mypresentationsmall1.png" />
     <None Include="Resources\mypresentation.png" />
+    <Content Include="nico.ico" />
+    <None Include="Resources\briefcasesmall.png" />
+    <None Include="Resources\briefcase.png" />
+    <None Include="Resources\briefcase1.png" />
+    <None Include="Resources\briefcase2.png" />
+    <None Include="Resources\infosmall.png" />
+    <None Include="Resources\downdoot.png" />
+    <None Include="Resources\downdootgrey.png" />
+    <Content Include="Resources\checkmark.png" />
+    <None Include="Resources\checkmark1.png" />
+    <Content Include="Resources\loading %282%29.gif" />
     <Content Include="Resources\mypresentationsmall.png" />
     <Content Include="NIAR.png" />
   </ItemGroup>
@@ -151,4 +238,17 @@
     </BootstrapperPackage>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\cef.redist.x64.75.1.14\build\cef.redist.x64.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\cef.redist.x64.75.1.14\build\cef.redist.x64.props'))" />
+    <Error Condition="!Exists('..\packages\cef.redist.x86.75.1.14\build\cef.redist.x86.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\cef.redist.x86.75.1.14\build\cef.redist.x86.props'))" />
+    <Error Condition="!Exists('..\packages\CefSharp.Common.75.1.143\build\CefSharp.Common.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\CefSharp.Common.75.1.143\build\CefSharp.Common.props'))" />
+    <Error Condition="!Exists('..\packages\CefSharp.Common.75.1.143\build\CefSharp.Common.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\CefSharp.Common.75.1.143\build\CefSharp.Common.targets'))" />
+    <Error Condition="!Exists('..\packages\CefSharp.WinForms.75.1.143\build\CefSharp.WinForms.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\CefSharp.WinForms.75.1.143\build\CefSharp.WinForms.props'))" />
+    <Error Condition="!Exists('..\packages\CefSharp.WinForms.75.1.143\build\CefSharp.WinForms.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\CefSharp.WinForms.75.1.143\build\CefSharp.WinForms.targets'))" />
+  </Target>
+  <Import Project="..\packages\CefSharp.Common.75.1.143\build\CefSharp.Common.targets" Condition="Exists('..\packages\CefSharp.Common.75.1.143\build\CefSharp.Common.targets')" />
+  <Import Project="..\packages\CefSharp.WinForms.75.1.143\build\CefSharp.WinForms.targets" Condition="Exists('..\packages\CefSharp.WinForms.75.1.143\build\CefSharp.WinForms.targets')" />
 </Project>
